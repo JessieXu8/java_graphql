@@ -16,10 +16,12 @@ import javax.servlet.annotation.WebServlet;
 public class GraphQLEndpoint extends SimpleGraphQLServlet {
 
     private static final LinkRepository linkRepository;
+    private static final UserRepository userRepository;
 
     static {
         MongoDatabase mongo = new MongoClient().getDatabase("hackernews");
         linkRepository = new LinkRepository(mongo.getCollection("links"));
+        userRepository = new UserRepository(mongo.getCollection("users"));
     }
 
     public GraphQLEndpoint() {
@@ -29,7 +31,7 @@ public class GraphQLEndpoint extends SimpleGraphQLServlet {
     private static GraphQLSchema buildSchema() {
         return SchemaParser.newParser()
                 .file("schema.graphqls")
-                .resolvers(new Query(linkRepository), new Mutation(linkRepository)) //注册新的解析器
+                .resolvers(new Query(linkRepository), new Mutation(linkRepository, userRepository)) //注册新的解析器
                 .build()
                 .makeExecutableSchema();
     }

@@ -14,6 +14,20 @@ mutation{
   }
 }
 
+3.新增user
+mutation{
+  createUser(
+    name:"test name"
+    authProvider:{
+    	email:"test email"
+        password:"test password"  
+    }
+  ){
+  	id
+    email
+  }
+}
+
 
 
 

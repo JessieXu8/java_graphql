@@ -1,3 +1,10 @@
+type User{
+    id:ID!
+    name:String!
+    email:String
+    password:String
+}
+
 type Link {
     id: ID!
     url: String!
@@ -9,7 +16,13 @@ type Query {
 }
 
 type Mutation{
+    createUser(name:String!,authProvider:AuthData!):User
     createLink(url:String!,description:String):Link
+}
+
+input AuthData{
+    email:String!
+    password:String!
 }
 
 schema {
