@@ -1,10 +1,11 @@
-package com.howtographql.hackernews;
+package com.howtographql.hackernews.repository;
 
+import com.howtographql.hackernews.po.User;
 import com.mongodb.client.MongoCollection;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
-import java.util.ArrayList;
-import java.util.List;
+import static com.mongodb.client.model.Filters.eq;
 
 /**
  * @author Ocean Liang
@@ -36,5 +37,15 @@ public class UserRepository {
                 doc.getString("name"),
                 doc.getString("email"),
                 doc.getString("password"));
+    }
+
+    public User findByEmail(String email) {
+        Document doc = users.find(eq("email", email)).first();
+        return user(doc);
+    }
+
+    public User findById(String userId) {
+        Document doc = users.find(eq("_id", new ObjectId(userId))).first();
+        return user(doc);
     }
 }

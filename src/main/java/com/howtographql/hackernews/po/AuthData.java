@@ -1,4 +1,4 @@
-package com.howtographql.hackernews;
+package com.howtographql.hackernews.po;
 
 /**
  * @author Ocean Liang
